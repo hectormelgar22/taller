@@ -1,0 +1,197 @@
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/manrope';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scrollbar-color: #2C333A #0B0D0F;
+  }
+
+  html,
+  body,
+  #root {
+    background: #0B0D0F;
+  }
+
+  body {
+    font-family: theme('fontFamily.sans');
+    color: theme('colors.chalk');
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    caret-color: theme('colors.accent.DEFAULT');
+  }
+
+  /* Browser surfaces belong to the design, not to the browser. */
+  ::selection {
+    background: #FF5A1F;
+    color: #0B0D0F;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0B0D0F;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2C333A;
+    border: 3px solid #0B0D0F;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF5A1F;
+  }
+
+  :focus-visible {
+    outline: 2px solid #FF5A1F;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* The paper sections need a focus ring that survives a light ground. */
+  .on-paper :focus-visible {
+    outline-color: #C43E0B;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: theme('fontFamily.display');
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #8A9198;
+  }
+
+  /* Native date/number controls ship with a light-mode look on a dark page. */
+  input[type='date'],
+  input[type='month'],
+  select {
+    color-scheme: dark;
+  }
+  .on-paper input[type='date'],
+  .on-paper input[type='month'],
+  .on-paper select {
+    color-scheme: light;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 96rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4.5vw, 4.5rem);
+  }
+
+  /* Tiny uppercase technical labels, used sparingly as data markers. */
+  .tag {
+    font-family: theme('fontFamily.sans');
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  .rule {
+    height: 1px;
+    background: theme('colors.ink.line');
+  }
+
+  .rule-paper {
+    height: 1px;
+    background: theme('colors.paper.line');
+  }
+}
+
+@layer utilities {
+  /* Reglas verticales de la retícula, como los márgenes de un plano técnico.
+     Solo en un eje: la cuadrícula completa ensucia y no aporta estructura. */
+  .rules-x {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 25% 100%;
+  }
+
+  .rules-x-paper {
+    background-image: linear-gradient(to right, rgba(11, 13, 15, 0.07) 1px, transparent 1px);
+    background-size: 25% 100%;
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.32;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
